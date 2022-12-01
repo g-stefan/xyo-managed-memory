@@ -1,0 +1,36 @@
+// Managed Memory
+// Copyright (c) 2022 Grigore Stefan <g_stefan@yahoo.com>
+// MIT License (MIT) <http://opensource.org/licenses/MIT>
+// SPDX-FileCopyrightText: 2022 Grigore Stefan <g_stefan@yahoo.com>
+// SPDX-License-Identifier: MIT
+
+#include <XYO/ManagedMemory/RegistryData.hpp>
+
+namespace XYO::ManagedMemory {
+
+	namespace RegistryData {
+
+		void finalizeResource(RegistryDataNode *this_) {
+			RegistryDataNode *scan;
+			for (scan = this_; scan; scan = scan->next) {
+				if (scan->resourceThis) {
+					if (scan->finalizeResource) {
+						(*scan->finalizeResource)(scan->resourceThis);
+					};
+				};
+			};
+		};
+
+		void deleteResource(RegistryDataNode *this_) {
+			RegistryDataNode *scan;
+			for (scan = this_; scan; scan = scan->next) {
+				if (scan->resourceThis) {
+					if (scan->deleteResource) {
+						(*scan->deleteResource)(scan->resourceThis);
+					};
+				};
+			};
+		};
+
+	};
+};

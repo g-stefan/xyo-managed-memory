@@ -1,0 +1,16 @@
+// Managed Memory
+// Copyright (c) 2022 Grigore Stefan <g_stefan@yahoo.com>
+// MIT License (MIT) <http://opensource.org/licenses/MIT>
+// SPDX-FileCopyrightText: 2022 Grigore Stefan <g_stefan@yahoo.com>
+// SPDX-License-Identifier: MIT
+
+#ifndef XYO_MANAGEDMEMORY_COPYRIGHT_RH
+#define XYO_MANAGEDMEMORY_COPYRIGHT_RH
+
+#define XYO_MANAGEDMEMORY_COPYRIGHT "Copyright (c) 2022 Grigore Stefan"
+#define XYO_MANAGEDMEMORY_PUBLISHER "Grigore Stefan"
+#define XYO_MANAGEDMEMORY_COMPANY XYO_MANAGEDMEMORY_PUBLISHER
+#define XYO_MANAGEDMEMORY_CONTACT "g_stefan@yahoo.com"
+#define XYO_MANAGEDMEMORY_FULL_COPYRIGHT XYO_MANAGEDMEMORY_COPYRIGHT " <" XYO_MANAGEDMEMORY_CONTACT ">"
+
+#endif
