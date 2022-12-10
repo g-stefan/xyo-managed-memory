@@ -16,7 +16,6 @@ namespace XYO::ManagedMemory::Copyright {
 	XYO_MANAGEDMEMORY_EXPORT const char *publisher();
 	XYO_MANAGEDMEMORY_EXPORT const char *company();
 	XYO_MANAGEDMEMORY_EXPORT const char *contact();
-	XYO_MANAGEDMEMORY_EXPORT const char *fullCopyright();
 };
 
 #endif
