@@ -26,7 +26,8 @@ if(OS.isWindows()){
 
 	if(Platform.name.indexOf("mingw")>=0){
 		defines = defines.concat([
-			"XYO_COMPILER_GCC"
+			"XYO_COMPILER_GCC",
+			"XYO_OS_MINGW"
 		]);
 	};
 };
