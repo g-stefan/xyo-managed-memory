@@ -1,14 +1,18 @@
 {
-	"project": {
+	"solution": {
 		"name" : "xyo-managed-memory",
 		"type" : "xyo-cpp",
-		"make" : "lib-and-dll",
-		"SPDX-License-Identifier": "MIT",
-		"sourcePath" : "XYO/ManagedMemory",
-		"testSource" : [
-			"test.01"
+		"projects": [
+			{
+				"name" : "xyo-managed-memory",		
+				"make" : "lib-and-dll",
+				"SPDX-License-Identifier": "MIT",
+				"sourcePath" : "XYO/ManagedMemory",
+				"testSource" : [
+					"test.01"
+				]				
+			}
 		],
-		"hasRelease" : true,
-		"githubRelease" : true
+		"hasGithub" : true
 	}
 }
