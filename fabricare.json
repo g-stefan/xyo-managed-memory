@@ -4,13 +4,20 @@
 		"type" : "xyo-cpp",
 		"projects": [
 			{
-				"name" : "xyo-managed-memory",		
+				"name" : "xyo-managed-memory",
 				"make" : "lib-and-dll",
+				"category" : "make",
 				"SPDX-License-Identifier": "MIT",
-				"sourcePath" : "XYO/ManagedMemory",
-				"testSource" : [
-					"test.01"
-				]				
+				"sourcePath" : "XYO/ManagedMemory"
+			},
+			{
+				"name" : "test.01",
+				"make" : "exe.static",
+				"category" : "test",
+				"SPDX-License-Identifier": "Unlicense",
+				"dependency" : [
+					"xyo-managed-memory"
+				]
 			}
 		],
 		"hasGithub" : true
