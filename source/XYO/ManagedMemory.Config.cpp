@@ -160,7 +160,7 @@ int main(int cmdN, char *cmdS[]) {
 // -- System
 #ifdef XYO_MANAGEDMEMORY_64BIT
 	configEnable("XYO_MANAGEDMEMORY_64BIT");
-#endif	
+#endif
 
 // -- Debug
 #ifdef XYO_MEMORY_LEAK_DETECTOR_VLD

@@ -18,7 +18,8 @@
 namespace XYO::ManagedMemory {
 
 	class Object {
-		XYO_DISALLOW_COPY_ASSIGN_MOVE(Object);
+			XYO_DISALLOW_COPY_ASSIGN_MOVE(Object);
+
 		protected:
 #ifdef XYO_MANAGEDMEMORY_64BIT
 			int64_t referenceCounter_;
