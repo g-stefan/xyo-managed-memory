@@ -157,6 +157,11 @@ int main(int cmdN, char *cmdS[]) {
 
 	configSetPlatform(XYO_PLATFORM_STR);
 
+// -- System
+#ifdef XYO_MANAGEDMEMORY_64BIT
+	configEnable("XYO_MANAGEDMEMORY_64BIT");
+#endif	
+
 // -- Debug
 #ifdef XYO_MEMORY_LEAK_DETECTOR_VLD
 	configEnable("XYO_MEMORY_LEAK_DETECTOR_VLD");

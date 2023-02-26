@@ -18,12 +18,7 @@
 namespace XYO::ManagedMemory {
 
 	class Object {
-		private:
-			Object(const Object &) = delete;
-			Object(Object &&) = delete;
-			Object &operator=(const Object &) = delete;
-			Object &operator=(Object &&) = delete;
-
+		XYO_DISALLOW_COPY_ASSIGN_MOVE(Object);
 		protected:
 #ifdef XYO_MANAGEDMEMORY_64BIT
 			int64_t referenceCounter_;
@@ -66,7 +61,7 @@ namespace XYO::ManagedMemory {
 			void XYO_MANAGEDMEMORY_EXPORT removePointerX(PointerX *value);
 			void XYO_MANAGEDMEMORY_EXPORT transferPointerX(PointerX *value, const Object *object, const void *object_);
 
-			void decReferenceCountExecutive() {
+			inline void decReferenceCountExecutive() {
 				--referenceCounter_;
 			};
 

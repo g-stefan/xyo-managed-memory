@@ -30,6 +30,9 @@
 // -- Platform
 // #define XYO_PLATFORM "unknown"
 
+// -- System
+// #define XYO_MANAGEDMEMORY_64BIT
+
 // -- Debug
 // #define XYO_MEMORY_LEAK_DETECTOR_VLD
 // #define XYO_TMEMORYPOOL_SYSTEM
