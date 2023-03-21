@@ -38,30 +38,30 @@ namespace XYO::ManagedMemory::License {
 
 	std::string license() {
 		std::string retV;
-		retV+=licenseMITHeader();
-		retV+=Copyright::copyright();
-		retV+="\r\n";
-		retV+=licenseMITContent();
+		retV += licenseMITHeader();
+		retV += Copyright::copyright();
+		retV += "\r\n";
+		retV += licenseMITContent();
 		return retV;
 	};
 
 	std::string shortLicense() {
-		std::string retV;		
-		retV+=Copyright::copyright();
-		retV+="\r\n";
-		retV+=licenseMITShort();
+		std::string retV;
+		retV += Copyright::copyright();
+		retV += "\r\n";
+		retV += licenseMITShort();
 		return retV;
 	};
 
-	std::string licenseMITShort(){
+	std::string licenseMITShort() {
 		return licenseMITShort_;
 	};
 
-	std::string licenseMITHeader(){
+	std::string licenseMITHeader() {
 		return licenseMITHeader_;
 	};
 
-	std::string licenseMITContent(){
+	std::string licenseMITContent() {
 		return licenseMITContent_;
 	};
 

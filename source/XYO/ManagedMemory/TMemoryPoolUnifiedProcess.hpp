@@ -89,7 +89,7 @@ namespace XYO::ManagedMemory {
 				retV += registryKey();
 				return retV;
 			};
-#	endif				
+#	endif
 
 			inline ~TMemoryPoolUnifiedProcessImplement() {
 
@@ -143,16 +143,15 @@ namespace XYO::ManagedMemory {
 				return this_;
 			};
 
-#		ifdef XYO_TMEMORYPOOL_CHECK
+#	ifdef XYO_TMEMORYPOOL_CHECK
 			static inline const std::string deleteMemoryOnAlreadyDeletedObject_() {
 				std::string retV("deleteMemory on already deleted object ");
 				retV += registryKey();
 				return retV;
 			};
+#	endif
 
 			inline void deleteMemory(void *this_) {
-#	endif				
-
 #	ifdef XYO_TMEMORYPOOL_CHECK
 				if ((reinterpret_cast<Link *>((reinterpret_cast<uint8_t *>(this_)) - offsetof(Link, value)))->isDeleted) {
 					throw std::runtime_error(deleteMemoryOnAlreadyDeletedObject_());

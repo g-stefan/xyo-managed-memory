@@ -17,8 +17,7 @@ namespace XYO::ManagedMemory {
 		referenceIsBranch_ = false;
 	};
 
-	Object::~Object() {
-	};
+	Object::~Object(){};
 
 	void Object::decReferenceCount() {
 		--referenceCounter_;

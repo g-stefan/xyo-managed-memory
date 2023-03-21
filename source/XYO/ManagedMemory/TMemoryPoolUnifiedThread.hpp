@@ -22,9 +22,9 @@ namespace XYO::ManagedMemory {
 
 #elif defined(XYO_SINGLE_THREAD)
 
-#		ifndef XYO_MANAGEDMEMORY_TMEMORYPOOLUNIFIEDPROCESS_HPP
-#			include <XYO/ManagedMemory/TMemoryPoolUnifiedProcess.hpp>
-#		endif
+#	ifndef XYO_MANAGEDMEMORY_TMEMORYPOOLUNIFIEDPROCESS_HPP
+#		include <XYO/ManagedMemory/TMemoryPoolUnifiedProcess.hpp>
+#	endif
 
 namespace XYO::ManagedMemory {
 
@@ -35,17 +35,17 @@ namespace XYO::ManagedMemory {
 
 #else
 
-#		ifndef XYO_MANAGEDMEMORY_TMEMORYSYSTEM_HPP
-#			include <XYO/ManagedMemory/TMemorySystem.hpp>
-#		endif
+#	ifndef XYO_MANAGEDMEMORY_TMEMORYSYSTEM_HPP
+#		include <XYO/ManagedMemory/TMemorySystem.hpp>
+#	endif
 
-#		ifndef XYO_MANAGEDMEMORY_REGISTRYTHREAD_HPP
-#			include <XYO/ManagedMemory/RegistryThread.hpp>
-#		endif
+#	ifndef XYO_MANAGEDMEMORY_REGISTRYTHREAD_HPP
+#		include <XYO/ManagedMemory/RegistryThread.hpp>
+#	endif
 
-#		ifndef XYO_MANAGEDMEMORY_TXLIST1_HPP
-#			include <XYO/ManagedMemory/TXList1.hpp>
-#		endif
+#	ifndef XYO_MANAGEDMEMORY_TXLIST1_HPP
+#		include <XYO/ManagedMemory/TXList1.hpp>
+#	endif
 
 namespace XYO::ManagedMemory {
 
@@ -62,9 +62,9 @@ namespace XYO::ManagedMemory {
 					Link *next;
 
 					uint8_t value[sizeOfT];
-#		ifdef XYO_TMEMORYPOOL_CHECK
+#	ifdef XYO_TMEMORYPOOL_CHECK
 					bool isDeleted;
-#		endif
+#	endif
 			};
 
 			typedef TXList1<Link, TMemorySystem> ListLink;
@@ -72,16 +72,16 @@ namespace XYO::ManagedMemory {
 			Link *rootFreeLink;
 			size_t rootFreeLinkCount;
 
-#		ifdef XYO_TMEMORYPOOL_CHECK_COUNT
+#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
 			size_t checkCount;
-#		endif
+#	endif
 
 			inline TMemoryPoolUnifiedThreadImplement() {
 				ListLink::constructor(rootFreeLink);
 				rootFreeLinkCount = 0;
-#		ifdef XYO_TMEMORYPOOL_CHECK_COUNT
+#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
 				checkCount = 0;
-#		endif
+#	endif
 			};
 
 #	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
@@ -90,15 +90,15 @@ namespace XYO::ManagedMemory {
 				retV += registryKey();
 				return retV;
 			};
-#	endif			
+#	endif
 
 			inline ~TMemoryPoolUnifiedThreadImplement() {
 
-#		ifdef XYO_TMEMORYPOOL_CHECK
+#	ifdef XYO_TMEMORYPOOL_CHECK
 				if (checkCount != 0) {
 					throw std::runtime_error(checkCountNotZero_());
 				};
-#		endif
+#	endif
 				ListLink::destructor(rootFreeLink);
 			};
 
@@ -107,9 +107,9 @@ namespace XYO::ManagedMemory {
 				Link *newItem;
 				for (k = 0; k < NewElementCount; ++k) {
 					newItem = ListLink::newNode();
-#		ifdef XYO_TMEMORYPOOL_CHECK
+#	ifdef XYO_TMEMORYPOOL_CHECK
 					newItem->isDeleted = true;
-#		endif
+#	endif
 					++rootFreeLinkCount;
 					ListLink::push(rootFreeLink, newItem);
 				};
@@ -121,12 +121,12 @@ namespace XYO::ManagedMemory {
 					grow();
 				};
 				this_ = (void *)(rootFreeLink->value);
-#		ifdef XYO_TMEMORYPOOL_CHECK
+#	ifdef XYO_TMEMORYPOOL_CHECK
 				rootFreeLink->isDeleted = false;
-#		endif
-#		ifdef XYO_TMEMORYPOOL_CHECK_COUNT
+#	endif
+#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
 				checkCount++;
-#		endif
+#	endif
 				--rootFreeLinkCount;
 				ListLink::popUnsafeX(rootFreeLink);
 				return this_;
@@ -138,18 +138,18 @@ namespace XYO::ManagedMemory {
 				retV += registryKey();
 				return retV;
 			};
-#		endif			
+#	endif
 
 			inline void deleteMemory(void *this_) {
-#		ifdef XYO_TMEMORYPOOL_CHECK
+#	ifdef XYO_TMEMORYPOOL_CHECK
 				if ((reinterpret_cast<Link *>((reinterpret_cast<uint8_t *>(this_)) - offsetof(Link, value)))->isDeleted) {
 					throw std::runtime_error(deleteMemoryOnAlreadyDeletedObject_());
 				};
 				(reinterpret_cast<Link *>((reinterpret_cast<uint8_t *>(this_)) - offsetof(Link, value)))->isDeleted = true;
-#		endif
-#		ifdef XYO_TMEMORYPOOL_CHECK_COUNT
+#	endif
+#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
 				checkCount--;
-#		endif
+#	endif
 
 				++rootFreeLinkCount;
 				this_ = (void *)((reinterpret_cast<uint8_t *>(this_)) - offsetof(Link, value));
@@ -341,5 +341,7 @@ namespace XYO::ManagedMemory {
 	};
 
 };
+
+#endif
 
 #endif

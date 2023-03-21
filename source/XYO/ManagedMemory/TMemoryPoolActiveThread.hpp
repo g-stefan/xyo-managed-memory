@@ -35,9 +35,9 @@ namespace XYO::ManagedMemory {
 
 #elif defined(XYO_SINGLE_THREAD)
 
-#		ifndef XYO_MANAGEDMEMORY_TMEMORYPOOLACTIVEPROCESS_HPP
-#			include <XYO/ManagedMemory/TMemoryPoolActiveProcess.hpp>
-#		endif
+#	ifndef XYO_MANAGEDMEMORY_TMEMORYPOOLACTIVEPROCESS_HPP
+#		include <XYO/ManagedMemory/TMemoryPoolActiveProcess.hpp>
+#	endif
 
 namespace XYO::ManagedMemory {
 
@@ -48,17 +48,17 @@ namespace XYO::ManagedMemory {
 
 #else
 
-#		ifndef XYO_MANAGEDMEMORY_TMEMORYPOOLUNIFIEDTHREAD_HPP
-#			include <XYO/ManagedMemory/TMemoryPoolUnifiedThread.hpp>
-#		endif
+#	ifndef XYO_MANAGEDMEMORY_TMEMORYPOOLUNIFIEDTHREAD_HPP
+#		include <XYO/ManagedMemory/TMemoryPoolUnifiedThread.hpp>
+#	endif
 
-#		ifndef XYO_MANAGEDMEMORY_TXLIST1_HPP
-#			include <XYO/ManagedMemory/TXList1.hpp>
-#		endif
+#	ifndef XYO_MANAGEDMEMORY_TXLIST1_HPP
+#		include <XYO/ManagedMemory/TXList1.hpp>
+#	endif
 
-#		ifndef XYO_MANAGEDMEMORY_REGISTRYTHREAD_HPP
-#			include <XYO/ManagedMemory/RegistryThread.hpp>
-#		endif
+#	ifndef XYO_MANAGEDMEMORY_REGISTRYTHREAD_HPP
+#		include <XYO/ManagedMemory/RegistryThread.hpp>
+#	endif
 
 namespace XYO::ManagedMemory {
 
@@ -75,28 +75,28 @@ namespace XYO::ManagedMemory {
 					Link *next;
 
 					uint8_t value[sizeof(T)];
-#		ifdef XYO_TMEMORYPOOL_CHECK
+#	ifdef XYO_TMEMORYPOOL_CHECK
 					bool isDeleted;
-#		endif
+#	endif
 			};
 
-#		ifdef XYO_TMEMORYPOOL_ACTIVE_LEVEL_IS_SYSTEM
+#	ifdef XYO_TMEMORYPOOL_ACTIVE_LEVEL_IS_SYSTEM
 			typedef TXList1<Link, TMemorySystem> ListLink;
-#		else
+#	else
 			typedef TXList1<Link, TMemoryPoolUnifiedThread> ListLink;
-#		endif
+#	endif
 			Link *poolFreeLink;
 			size_t poolFreeLinkCount;
-#		ifdef XYO_TMEMORYPOOL_CHECK_COUNT
+#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
 			size_t checkCount;
-#		endif
+#	endif
 
 			inline TMemoryPoolActiveThreadImplement() {
 				ListLink::constructor(poolFreeLink);
 				poolFreeLinkCount = 0;
-#		ifdef XYO_TMEMORYPOOL_CHECK_COUNT
+#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
 				checkCount = 0;
-#		endif
+#	endif
 			};
 
 #	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
@@ -105,15 +105,15 @@ namespace XYO::ManagedMemory {
 				retV += registryKey();
 				return retV;
 			};
-#	endif			
+#	endif
 
 			inline ~TMemoryPoolActiveThreadImplement() {
 
-#		ifdef XYO_TMEMORYPOOL_CHECK_COUNT
+#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
 				if (checkCount != 0) {
 					throw std::runtime_error(checkCountNotZero_());
 				};
-#		endif
+#	endif
 
 				Link *this_;
 				while (poolFreeLink) {
@@ -132,9 +132,9 @@ namespace XYO::ManagedMemory {
 				for (k = 0; k < NewElementCount; ++k) {
 					this_ = ListLink::newNode();
 					new (&this_->value[0]) T();
-#		ifdef XYO_TMEMORYPOOL_CHECK
+#	ifdef XYO_TMEMORYPOOL_CHECK
 					this_->isDeleted = true;
-#		endif
+#	endif
 					++poolFreeLinkCount;
 					ListLink::push(poolFreeLink, this_);
 					TIfHasSetDeleteMemory<T>::setDeleteMemory(reinterpret_cast<T *>(&this_->value[0]), (DeleteMemory)deleteMemory_, reinterpret_cast<T *>(&this_->value[0]));
@@ -147,38 +147,38 @@ namespace XYO::ManagedMemory {
 					grow();
 				};
 				this_ = reinterpret_cast<T *>(&poolFreeLink->value[0]);
-#		ifdef XYO_TMEMORYPOOL_CHECK
+#	ifdef XYO_TMEMORYPOOL_CHECK
 				poolFreeLink->isDeleted = false;
-#		endif
+#	endif
 				--poolFreeLinkCount;
 				ListLink::popUnsafeX(poolFreeLink);
-#		ifdef XYO_TMEMORYPOOL_CHECK_COUNT
+#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
 				checkCount++;
-#		endif
+#	endif
 
 				TIfHasActiveConstructor<T>::activeConstructor(this_);
 				return this_;
 			};
 
-#		ifdef XYO_TMEMORYPOOL_CHECK
+#	ifdef XYO_TMEMORYPOOL_CHECK
 			static inline const std::string deleteMemoryOnAlreadyDeletedObject_() {
 				std::string retV("deleteMemory on already deleted object ");
 				retV += registryKey();
 				return retV;
 			};
-#		endif			
+#	endif
 
 			inline void deleteMemory(T *this_) {
 
-#		ifdef XYO_TMEMORYPOOL_CHECK
+#	ifdef XYO_TMEMORYPOOL_CHECK
 				if ((reinterpret_cast<Link *>((reinterpret_cast<uint8_t *>(this_)) - offsetof(Link, value)))->isDeleted) {
 					throw std::runtime_error(deleteMemoryOnAlreadyDeletedObject_());
 				};
 				(reinterpret_cast<Link *>((reinterpret_cast<uint8_t *>(this_)) - offsetof(Link, value)))->isDeleted = true;
-#		endif
-#		ifdef XYO_TMEMORYPOOL_CHECK_COUNT
+#	endif
+#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
 				checkCount--;
-#		endif
+#	endif
 
 				TIfHasActiveDestructor<T>::activeDestructor(this_);
 				this_ = reinterpret_cast<T *>((reinterpret_cast<uint8_t *>(this_)) - offsetof(Link, value));

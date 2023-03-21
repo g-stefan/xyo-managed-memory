@@ -102,7 +102,7 @@ namespace XYO::ManagedMemory {
 				retV += registryKey();
 				return retV;
 			};
-#	endif			
+#	endif
 
 			inline ~TMemoryPoolActiveProcessImplement() {
 
@@ -170,7 +170,7 @@ namespace XYO::ManagedMemory {
 				retV += registryKey();
 				return retV;
 			};
-#	endif		
+#	endif
 
 			inline void deleteMemory(T *this_) {
 #	ifdef XYO_TMEMORYPOOL_CHECK

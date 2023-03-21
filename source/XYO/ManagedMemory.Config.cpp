@@ -185,7 +185,6 @@ int main(int cmdN, char *cmdS[]) {
 	configEnable("XYO_TMEMORYPOOL_CHECK_COUNT");
 #endif
 
-
 	if (!fileReplaceLine(configFileIn, configFileCheck, configMap)) {
 		cout << "ManagedMemory - Configuration check error\n";
 		return 1;
