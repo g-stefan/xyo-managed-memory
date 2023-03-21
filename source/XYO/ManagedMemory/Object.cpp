@@ -10,9 +10,6 @@
 namespace XYO::ManagedMemory {
 
 	Object::Object() {
-#ifdef XYO_OBJECT_REFERENCE_COUNT_INFO
-		printf("%p: Object()\n", this);
-#endif
 		referenceCounter_ = 0;
 		deleteMemory_ = nullptr;
 		pointerXHead_ = nullptr;
@@ -21,24 +18,14 @@ namespace XYO::ManagedMemory {
 	};
 
 	Object::~Object() {
-#ifdef XYO_OBJECT_REFERENCE_COUNT_INFO
-		printf("%p: ~Object()\n", this);
-#endif
 	};
 
 	void Object::decReferenceCount() {
-#ifdef XYO_OBJECT_REFERENCE_COUNT_INFO
-		printf("%p: decReferenceCount %08d > %08d\n", this, referenceCounter_, referenceCounter_ - 1);
-#endif
 		--referenceCounter_;
 		if (referenceCounter_ <= 0) {
 			referenceCounter_ = 0;
 			if (pointerXHead_ == nullptr) {
 				if (deleteMemory_) {
-#ifdef XYO_OBJECT_REFERENCE_COUNT_INFO
-					printf("%p: deleteMemory #1\n", this);
-					fflush(stdout);
-#endif
 					(*deleteMemory_)(memoryThis_);
 				};
 				return;
@@ -51,18 +38,10 @@ namespace XYO::ManagedMemory {
 	};
 
 	void Object::addPointerX(struct PointerX *value) {
-#ifdef XYO_OBJECT_REFERENCE_COUNT_INFO
-		printf("%p: addPointerX %p\n", this, value);
-		fflush(stdout);
-#endif
 		TXList2<PointerX>::push(pointerXHead_, value);
 	};
 
 	void Object::removePointerX(struct PointerX *value) {
-#ifdef XYO_OBJECT_REFERENCE_COUNT_INFO
-		printf("%p: removePointerX %p\n", this, value);
-		fflush(stdout);
-#endif
 		value->object = nullptr;
 
 		TXList2<PointerX>::extract(pointerXHead_, value);
@@ -71,11 +50,6 @@ namespace XYO::ManagedMemory {
 			if (referenceCounter_ <= 0) {
 				referenceCounter_ = 0;
 				if (deleteMemory_) {
-#ifdef XYO_OBJECT_REFERENCE_COUNT_INFO
-					printf("%p: deleteMemory #2\n", this);
-					fflush(stdout);
-#endif
-
 					(*deleteMemory_)(memoryThis_);
 				};
 			};
@@ -91,10 +65,6 @@ namespace XYO::ManagedMemory {
 	};
 
 	void Object::transferPointerX(struct PointerX *value, const Object *object, const void *object_) {
-#ifdef XYO_OBJECT_REFERENCE_COUNT_INFO
-		printf("%p: transferPointerX %p, %p, %p\n", this, value, object, object_);
-		fflush(stdout);
-#endif
 		if (this == object) {
 			return;
 		};
@@ -111,10 +81,6 @@ namespace XYO::ManagedMemory {
 			if (referenceCounter_ <= 0) {
 				referenceCounter_ = 0;
 				if (deleteMemory_) {
-#ifdef XYO_OBJECT_REFERENCE_COUNT_INFO
-					printf("%p: deleteMemory #3\n", this);
-					fflush(stdout);
-#endif
 					(*deleteMemory_)(memoryThis_);
 				};
 			};
@@ -143,10 +109,6 @@ namespace XYO::ManagedMemory {
 			};
 			pointerXHead_ = nullptr;
 			if (deleteMemory_) {
-#ifdef XYO_OBJECT_REFERENCE_COUNT_INFO
-				printf("%p: deleteMemory #4\n", this);
-				fflush(stdout);
-#endif
 				(*deleteMemory_)(memoryThis_);
 			};
 			return;

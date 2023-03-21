@@ -84,30 +84,31 @@ namespace XYO::ManagedMemory {
 #	endif
 			Link *poolFreeLink;
 			size_t poolFreeLinkCount;
-#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT_INFO
+#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
 			size_t checkCount;
 #	endif
 
 			inline TMemoryPoolActiveProcessImplement() {
 				ListLink::constructor(poolFreeLink);
 				poolFreeLinkCount = 0;
-#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT_INFO
+#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
 				checkCount = 0;
-#	endif
-#	ifdef XYO_TMEMORYPOOL_CONSTRUCTOR_INFO
-				printf("# Constructor  %s - " XYO_FORMAT_SIZET "\n", registryKey(), sizeof(T));
 #	endif
 			};
 
-			inline ~TMemoryPoolActiveProcessImplement() {
-#	ifdef XYO_TMEMORYPOOL_DESTRUCTOR_INFO
-				printf("# Destructor %s - " XYO_FORMAT_SIZET "\n", registryKey(), sizeof(T));
-#	endif
+#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
+			static inline const std::string checkCountNotZero_() {
+				std::string retV("check count not zero ");
+				retV += registryKey();
+				return retV;
+			};
+#	endif			
 
-#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT_INFO
+			inline ~TMemoryPoolActiveProcessImplement() {
+
+#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
 				if (checkCount != 0) {
-					printf("# Check count: " XYO_FORMAT_SIZET " - %s\n", checkCount, registryKey());
-					fflush(stdout);
+					throw std::runtime_error(checkCountNotZero_());
 				};
 #	endif
 
@@ -152,7 +153,7 @@ namespace XYO::ManagedMemory {
 				--poolFreeLinkCount;
 				ListLink::popUnsafeX(poolFreeLink);
 
-#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT_INFO
+#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
 				checkCount++;
 #	endif
 
@@ -163,24 +164,22 @@ namespace XYO::ManagedMemory {
 				return this_;
 			};
 
+#	ifdef XYO_TMEMORYPOOL_CHECK
 			static inline const std::string deleteMemoryOnAlreadyDeletedObject_() {
 				std::string retV("deleteMemory on already deleted object ");
 				retV += registryKey();
 				return retV;
 			};
+#	endif		
 
 			inline void deleteMemory(T *this_) {
 #	ifdef XYO_TMEMORYPOOL_CHECK
 				if ((reinterpret_cast<Link *>((reinterpret_cast<uint8_t *>(this_)) - offsetof(Link, value)))->isDeleted) {
-#		ifdef XYO_TMEMORYPOOL_CHECK_INFO
-					printf("# Double deleteMemory: %p - %s", this_, registryKey());
-					fflush(stdout);
-#		endif
 					throw std::runtime_error(deleteMemoryOnAlreadyDeletedObject_());
 				};
 				(reinterpret_cast<Link *>((reinterpret_cast<uint8_t *>(this_)) - offsetof(Link, value)))->isDeleted = true;
 #	endif
-#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT_INFO
+#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
 				checkCount--;
 #	endif
 

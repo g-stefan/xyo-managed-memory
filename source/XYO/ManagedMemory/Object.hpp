@@ -42,18 +42,12 @@ namespace XYO::ManagedMemory {
 			bool referenceIsBranch_;
 
 			inline void incReferenceCount() {
-#ifdef XYO_OBJECT_REFERENCE_COUNT_INFO
-				printf("%p: incReferenceCount %08d > %08d\n", this, referenceCounter_, referenceCounter_ + 1);
-#endif
 				++referenceCounter_;
 			};
 
 			void XYO_MANAGEDMEMORY_EXPORT decReferenceCount();
 
 			inline void setDeleteMemory(DeleteMemory deleteMemory, void *memoryThis) {
-#ifdef XYO_OBJECT_REFERENCE_COUNT_INFO
-				printf("%p: setDeleteMemory %p, %p\n", this, deleteMemory, memoryThis);
-#endif
 				deleteMemory_ = deleteMemory;
 				memoryThis_ = memoryThis;
 			};

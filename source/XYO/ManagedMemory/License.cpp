@@ -6,13 +6,17 @@
 //
 
 #include <XYO/ManagedMemory/License.hpp>
+#include <XYO/ManagedMemory/Copyright.hpp>
 
 namespace XYO::ManagedMemory::License {
 
-	static const char *license_ =
+	static const char *licenseMITShort_ = "MIT License (MIT) <http://opensource.org/licenses/MIT>\r\n";
+
+	static const char *licenseMITHeader_ =
 	    "        MIT License\r\n"
-	    "\r\n"
-	    "Copyright (c) 2016-2023 Grigore Stefan <g_stefan@yahoo.com>\r\n"
+	    "\r\n";
+
+	static const char *licenseMITContent_ =
 	    "\r\n"
 	    "Permission is hereby granted, free of charge, to any person obtaining a copy\r\n"
 	    "of this software and associated documentation files (the \" Software \"), to deal\r\n"
@@ -32,16 +36,33 @@ namespace XYO::ManagedMemory::License {
 	    "OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\r\n"
 	    "SOFTWARE.\r\n";
 
-	static const char *shortLicense_ =
-	    "Copyright (c) 2016-2023 Grigore Stefan <g_stefan@yahoo.com>\r\n"
-	    "MIT License (MIT) <http://opensource.org/licenses/MIT>\r\n";
-
-	const char *license() {
-		return license_;
+	std::string license() {
+		std::string retV;
+		retV+=licenseMITHeader();
+		retV+=Copyright::copyright();
+		retV+="\r\n";
+		retV+=licenseMITContent();
+		return retV;
 	};
 
-	const char *shortLicense() {
-		return shortLicense_;
+	std::string shortLicense() {
+		std::string retV;		
+		retV+=Copyright::copyright();
+		retV+="\r\n";
+		retV+=licenseMITShort();
+		return retV;
+	};
+
+	std::string licenseMITShort(){
+		return licenseMITShort_;
+	};
+
+	std::string licenseMITHeader(){
+		return licenseMITHeader_;
+	};
+
+	std::string licenseMITContent(){
+		return licenseMITContent_;
 	};
 
 };

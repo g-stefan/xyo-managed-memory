@@ -181,27 +181,10 @@ int main(int cmdN, char *cmdS[]) {
 #ifdef XYO_TMEMORYPOOL_CHECK
 	configEnable("XYO_TMEMORYPOOL_CHECK");
 #endif
-#ifdef XYO_TMEMORYPOOL_CHECK_INFO
-	configEnable("XYO_TMEMORYPOOL_CHECK_INFO");
+#ifdef XYO_TMEMORYPOOL_CHECK_COUNT
+	configEnable("XYO_TMEMORYPOOL_CHECK_COUNT");
 #endif
-#ifdef XYO_TMEMORYPOOL_CHECK_COUNT_INFO
-	configEnable("XYO_TMEMORYPOOL_CHECK_COUNT_INFO");
-#endif
-#ifdef XYO_TMEMORYPOOL_CONSTRUCTOR_INFO
-	configEnable("XYO_TMEMORYPOOL_CONSTRUCTOR_INFO");
-#endif
-#ifdef XYO_TMEMORYPOOL_DESTRUCTOR_INFO
-	configEnable("XYO_TMEMORYPOOL_DESTRUCTOR_INFO");
-#endif
-#ifdef XYO_OBJECT_REFERENCE_COUNT_INFO
-	configEnable("XYO_OBJECT_REFERENCE_COUNT_INFO");
-#endif
-#ifdef XYO_TMEMORYPOOL_NEW_MEMORY_INFO
-	configEnable("XYO_TMEMORYPOOL_NEW_MEMORY_INFO");
-#endif
-#ifdef XYO_TMEMORYPOOL_DELETE_MEMORY_INFO
-	configEnable("XYO_TMEMORYPOOL_DELETE_MEMORY_INFO");
-#endif
+
 
 	if (!fileReplaceLine(configFileIn, configFileCheck, configMap)) {
 		cout << "ManagedMemory - Configuration check error\n";

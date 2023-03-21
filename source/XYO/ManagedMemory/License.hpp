@@ -13,8 +13,11 @@
 
 namespace XYO::ManagedMemory::License {
 
-	XYO_MANAGEDMEMORY_EXPORT const char *license();
-	XYO_MANAGEDMEMORY_EXPORT const char *shortLicense();
+	XYO_MANAGEDMEMORY_EXPORT std::string license();
+	XYO_MANAGEDMEMORY_EXPORT std::string shortLicense();
+	XYO_MANAGEDMEMORY_EXPORT std::string licenseMITShort();
+	XYO_MANAGEDMEMORY_EXPORT std::string licenseMITHeader();
+	XYO_MANAGEDMEMORY_EXPORT std::string licenseMITContent();
 
 };
 
