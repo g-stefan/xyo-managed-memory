@@ -14,7 +14,6 @@
 using namespace std;
 
 void stringReplace(string &data, string toSearch, string replaceWith) {
-
 	size_t pos = data.find(toSearch);
 	while (pos != string::npos) {
 		data.replace(pos, toSearch.size(), replaceWith);
@@ -23,7 +22,6 @@ void stringReplace(string &data, string toSearch, string replaceWith) {
 };
 
 bool fileReplaceLine(string fileIn_, string fileOut_, map<string, string> &toReplace) {
-
 	fstream fileIn;
 	fstream fileOut;
 	map<string, string>::iterator index;

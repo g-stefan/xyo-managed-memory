@@ -12,10 +12,10 @@
 #endif
 
 namespace XYO::ManagedMemory::Copyright {
-	XYO_MANAGEDMEMORY_EXPORT std::string copyright();
-	XYO_MANAGEDMEMORY_EXPORT std::string publisher();
-	XYO_MANAGEDMEMORY_EXPORT std::string company();
-	XYO_MANAGEDMEMORY_EXPORT std::string contact();
+	XYO_MANAGEDMEMORY_EXPORT const char *copyright();
+	XYO_MANAGEDMEMORY_EXPORT const char *publisher();
+	XYO_MANAGEDMEMORY_EXPORT const char *company();
+	XYO_MANAGEDMEMORY_EXPORT const char *contact();
 };
 
 #endif
