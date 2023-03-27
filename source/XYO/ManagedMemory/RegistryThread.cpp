@@ -66,7 +66,6 @@ namespace XYO::ManagedMemory {
 		};
 
 		void threadBegin() {
-
 			RegistryThreadData *this_ = new RegistryThreadData();
 
 			List::constructor(this_->data[RegistryLevel::Singleton]);
