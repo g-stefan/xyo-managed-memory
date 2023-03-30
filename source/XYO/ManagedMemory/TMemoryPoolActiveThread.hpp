@@ -71,8 +71,7 @@ namespace XYO::ManagedMemory {
 				FreeElementCount = 16
 			};
 
-			struct Link {
-					Link *next;
+			struct Link : TXList1Node<Link>  {					
 
 					uint8_t value[sizeof(T)];
 #	ifdef XYO_TMEMORYPOOL_CHECK
@@ -115,10 +114,14 @@ namespace XYO::ManagedMemory {
 				};
 #	endif
 
+				deleteListLink(poolFreeLink);
+			};
+
+			inline void deleteListLink(Link *&poolLink) {
 				Link *this_;
-				while (poolFreeLink) {
-					this_ = poolFreeLink;
-					poolFreeLink = poolFreeLink->next;
+				while (poolLink) {
+					this_ = poolLink;
+					poolLink = poolLink->next;
 					TIfHasActiveFinalizer<T>::activeFinalizer(reinterpret_cast<T *>(&this_->value[0]));
 					TIfHasSetDeleteMemory<T>::setDeleteMemory(reinterpret_cast<T *>(&this_->value[0]), nullptr, nullptr);
 					(reinterpret_cast<T *>(&this_->value[0]))->~T();
@@ -204,15 +207,7 @@ namespace XYO::ManagedMemory {
 				};
 
 				if (itemListToFree != nullptr) {
-					Link *link_;
-					while (itemListToFree) {
-						link_ = itemListToFree;
-						itemListToFree = itemListToFree->next;
-						TIfHasActiveFinalizer<T>::activeFinalizer(reinterpret_cast<T *>(&link_->value[0]));
-						TIfHasSetDeleteMemory<T>::setDeleteMemory(reinterpret_cast<T *>(&link_->value[0]), nullptr, nullptr);
-						(reinterpret_cast<T *>(&link_->value[0]))->~T();
-						ListLink::deleteNode(link_);
-					};
+					deleteListLink(itemListToFree);					
 				};
 			};
 
