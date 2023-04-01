@@ -17,12 +17,6 @@
 
 namespace XYO::ManagedMemory {
 
-	template <typename TNode>
-	struct TXList2Node {
-			TNode *back;
-			TNode *next;
-	};
-
 	template <typename TNode, template <typename U> class TNodeMemory = TMemorySystem>
 	struct TXList2 {
 
