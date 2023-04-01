@@ -7,6 +7,10 @@
 #ifndef XYO_MANAGEDMEMORY_TXREDBLACKTREE_HPP
 #define XYO_MANAGEDMEMORY_TXREDBLACKTREE_HPP
 
+#ifndef XYO_MANAGEDMEMORY_TXREDBLACKTREENODE_HPP
+#	include <XYO/ManagedMemory/TXRedBlackTreeNode.hpp>
+#endif
+
 #ifndef XYO_MANAGEDMEMORY_TCOMPARATOR_HPP
 #	include <XYO/ManagedMemory/TComparator.hpp>
 #endif
@@ -15,24 +19,7 @@
 #	include <XYO/ManagedMemory/TMemorySystem.hpp>
 #endif
 
-namespace XYO::ManagedMemory {
-
-	template <typename TNode, typename TKey>
-	struct TXRedBlackTreeNode {
-			typedef TKey Key;
-
-			enum Color : bool {
-				Black = false,
-				Red = true
-			};
-
-			TNode *parent;
-			TNode *left;
-			TNode *right;
-
-			Color color;
-			Key key;
-	};
+namespace XYO::ManagedMemory {	
 
 	template <typename TNode, template <typename U> class TNodeMemory = TMemorySystem>
 	struct TXRedBlackTree {

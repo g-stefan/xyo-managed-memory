@@ -7,16 +7,15 @@
 #ifndef XYO_MANAGEDMEMORY_TXLIST1_HPP
 #define XYO_MANAGEDMEMORY_TXLIST1_HPP
 
+#ifndef XYO_MANAGEDMEMORY_TXLIST1NODE_HPP
+#	include <XYO/ManagedMemory/TXList1Node.hpp>
+#endif
+
 #ifndef XYO_MANAGEDMEMORY_TMEMORYSYSTEM_HPP
 #	include <XYO/ManagedMemory/TMemorySystem.hpp>
 #endif
 
 namespace XYO::ManagedMemory {
-
-	template <typename TNode>
-	struct TXList1Node {
-			TNode *next;
-	};
 
 	template <typename TNode, template <typename U> class TNodeMemory = TMemorySystem>
 	struct TXList1 {

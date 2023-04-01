@@ -7,6 +7,10 @@
 #ifndef XYO_MANAGEDMEMORY_TXLIST2_HPP
 #define XYO_MANAGEDMEMORY_TXLIST2_HPP
 
+#ifndef XYO_MANAGEDMEMORY_TXLIST2NODE_HPP
+#	include <XYO/ManagedMemory/TXList2Node.hpp>
+#endif
+
 #ifndef XYO_MANAGEDMEMORY_TMEMORYSYSTEM_HPP
 #	include <XYO/ManagedMemory/TMemorySystem.hpp>
 #endif
