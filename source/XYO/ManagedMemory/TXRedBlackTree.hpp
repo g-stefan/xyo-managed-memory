@@ -19,7 +19,7 @@
 #	include <XYO/ManagedMemory/TMemorySystem.hpp>
 #endif
 
-namespace XYO::ManagedMemory {	
+namespace XYO::ManagedMemory {
 
 	template <typename TNode, template <typename U> class TNodeMemory = TMemorySystem>
 	struct TXRedBlackTree {

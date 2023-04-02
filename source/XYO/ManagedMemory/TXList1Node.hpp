@@ -17,7 +17,7 @@ namespace XYO::ManagedMemory {
 	struct TXList1Node {
 			TNode *next;
 	};
-	
+
 };
 
 #endif

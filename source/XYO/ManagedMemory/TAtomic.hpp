@@ -16,49 +16,48 @@ namespace XYO::ManagedMemory {
 	template <typename T>
 	class TAtomic {
 		protected:
-
-		#ifdef XYO_MULTI_THREAD
+#ifdef XYO_MULTI_THREAD
 			std::atomic<T> value;
-		#endif
-		#ifdef XYO_SINGLE_THREAD
+#endif
+#ifdef XYO_SINGLE_THREAD
 			T value;
-		#endif
+#endif
 
 		public:
-		#ifdef XYO_MULTI_THREAD
+#ifdef XYO_MULTI_THREAD
 			static const bool isAtomic = true;
-		#endif
-		#ifdef XYO_SINGLE_THREAD
+#endif
+#ifdef XYO_SINGLE_THREAD
 			static const bool isAtomic = false;
-		#endif
+#endif
 
 			inline TAtomic(){};
 
 			inline void set(const T &value_) {
-				#ifdef XYO_MULTI_THREAD
+#ifdef XYO_MULTI_THREAD
 				value.store(value_, std::memory_order_relaxed);
-				#endif
-				#ifdef XYO_SINGLE_THREAD
+#endif
+#ifdef XYO_SINGLE_THREAD
 				value = value_;
-				#endif
+#endif
 			};
 
 			inline void set(T &&value_) {
-				#ifdef XYO_MULTI_THREAD
+#ifdef XYO_MULTI_THREAD
 				value.store(value_, std::memory_order_relaxed);
-				#endif
-				#ifdef XYO_SINGLE_THREAD
+#endif
+#ifdef XYO_SINGLE_THREAD
 				value = std::move(value_);
-				#endif
+#endif
 			};
 
 			inline T get() const {
-				#ifdef XYO_MULTI_THREAD
+#ifdef XYO_MULTI_THREAD
 				return value.load(std::memory_order_relaxed);
-				#endif
-				#ifdef XYO_SINGLE_THREAD
+#endif
+#ifdef XYO_SINGLE_THREAD
 				return value;
-				#endif
+#endif
 			};
 
 			inline TAtomic(const TAtomic &value_) {

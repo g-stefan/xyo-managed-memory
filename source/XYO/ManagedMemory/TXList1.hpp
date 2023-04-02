@@ -48,8 +48,7 @@ namespace XYO::ManagedMemory {
 			};
 
 			static inline void empty(TNode *&head) {
-				destructor(head);
-				constructor(head);
+				destructor(head);				
 			};
 
 			static inline void push(TNode *&head, TNode *node) {

@@ -57,7 +57,7 @@ namespace XYO::ManagedMemory {
 				FreeElementCount = 16
 			};
 
-			struct Link : TXList1Node<Link>  {				
+			struct Link : TXList1Node<Link> {
 
 					uint8_t value[sizeOfT];
 #	ifdef XYO_TMEMORYPOOL_CHECK
@@ -121,7 +121,7 @@ namespace XYO::ManagedMemory {
 				if (!rootFreeLink) {
 					grow();
 				};
-				this_ = (void *)(rootFreeLink->value);			
+				this_ = (void *)(rootFreeLink->value);
 #	ifdef XYO_TMEMORYPOOL_CHECK
 				rootFreeLink->isDeleted = false;
 #	endif
