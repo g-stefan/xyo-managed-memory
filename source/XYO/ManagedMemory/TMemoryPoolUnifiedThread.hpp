@@ -58,7 +58,9 @@ namespace XYO::ManagedMemory {
 				FreeElementCount = 16
 			};
 
-			struct Link : TXList1Node<Link> {
+			struct Link {
+					Link *back;
+					Link *next;
 
 					uint8_t value[sizeOfT];
 #	ifdef XYO_TMEMORYPOOL_CHECK
