@@ -7,13 +7,15 @@
 #ifndef XYO_MANAGEDMEMORY_POINTERX_HPP
 #define XYO_MANAGEDMEMORY_POINTERX_HPP
 
-#ifndef XYO_MANAGEDMEMORY_TXLIST2NODE_HPP
-#	include <XYO/ManagedMemory/TXList2Node.hpp>
+#ifndef XYO_MANAGEDMEMORY_DEPENDENCY_HPP
+#	include <XYO/ManagedMemory/Dependency.hpp>
 #endif
 
 namespace XYO::ManagedMemory {
 
-	struct PointerX : TXList2Node<PointerX> {
+	struct PointerX {
+			PointerX *back;
+			PointerX *next;
 			class Object *link;
 			void *object;
 	};

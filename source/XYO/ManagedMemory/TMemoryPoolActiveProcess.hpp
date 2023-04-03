@@ -69,7 +69,6 @@ namespace XYO::ManagedMemory {
 			};
 
 			struct Link {
-					Link *back;
 					Link *next;
 
 					uint8_t value[sizeof(T)];
