@@ -13,7 +13,7 @@
 
 namespace XYO::ManagedMemory {
 
-	struct PointerX {
+	struct PointerX { // POD
 			PointerX *back;
 			PointerX *next;
 			class Object *link;

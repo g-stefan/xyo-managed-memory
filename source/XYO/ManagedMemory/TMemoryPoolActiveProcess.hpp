@@ -68,7 +68,7 @@ namespace XYO::ManagedMemory {
 				FreeElementCount = 16
 			};
 
-			struct Link {
+			struct Link { // POD
 					Link *next;
 
 					uint8_t value[sizeof(T)];
