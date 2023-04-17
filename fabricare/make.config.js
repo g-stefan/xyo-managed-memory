@@ -43,6 +43,10 @@ defines = defines.concat([
 	"XYO_PLATFORM=\"" + Platform.name + "\""
 ]);
 
+if(Shell.hasEnv("XYO_MANAGED_MEMORY_CONFIG")) {
+	defines = defines.concat(Shell.getenv("XYO_MANAGED_MEMORY_CONFIG").trim().split(" "));
+};
+
 if (Platform.machine == "x64") {
 	defines[defines.length] = "XYO_APPLICATION_64BIT";
 };
