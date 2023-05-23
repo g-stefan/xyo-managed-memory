@@ -75,7 +75,10 @@ namespace XYO::ManagedMemory::RegistryProcess {
 
 		while (valueIsNullptr()) {
 #	ifdef XYO_OS_LINUX
-			usleep(1000);
+			struct timespec _sleep;
+			sleep.tv_sec = 0;
+			sleep.tv_nsec = 1000000;
+			while(nanosleep(&_sleep, &_sleep)){};
 #	endif
 #	ifdef XYO_OS_WINDOWS
 			Sleep(1);
