@@ -17,6 +17,7 @@
 #ifdef XYO_OS_LINUX
 #	include <pthread.h>
 #	include <unistd.h>
+#	include <time.h>
 #endif
 
 namespace XYO::ManagedMemory::RegistryProcess {
