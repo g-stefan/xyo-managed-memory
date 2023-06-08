@@ -301,8 +301,7 @@ namespace XYO::ManagedMemory {
 				//
 				//
 
-				(
-				    TMemoryPoolUnifiedProcessImplement<sizeof(T)>::memoryPool.get())
+				(TMemoryPoolUnifiedProcessImplement<sizeof(T)>::memoryPool.get())
 				    ->deleteMemory(this_);
 			};
 

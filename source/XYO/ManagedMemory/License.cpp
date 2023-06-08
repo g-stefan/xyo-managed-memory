@@ -3,7 +3,6 @@
 // MIT License (MIT) <http://opensource.org/licenses/MIT>
 // SPDX-FileCopyrightText: 2016-2023 Grigore Stefan <g_stefan@yahoo.com>
 // SPDX-License-Identifier: MIT
-//
 
 #include <XYO/ManagedMemory/License.hpp>
 #include <XYO/ManagedMemory/Copyright.hpp>

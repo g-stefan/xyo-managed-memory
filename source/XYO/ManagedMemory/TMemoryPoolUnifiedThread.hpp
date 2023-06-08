@@ -280,9 +280,8 @@ namespace XYO::ManagedMemory {
 				//
 				//
 
-				(
-				    (TMemoryPoolUnifiedThreadImplement<sizeof(T)> *)
-				        RegistryThread::getValue(TMemoryPoolUnifiedThreadImplement<sizeof(T)>::registryLink))
+				((TMemoryPoolUnifiedThreadImplement<sizeof(T)> *)
+				     RegistryThread::getValue(TMemoryPoolUnifiedThreadImplement<sizeof(T)>::registryLink))
 				    ->deleteMemory(this_);
 			};
 
