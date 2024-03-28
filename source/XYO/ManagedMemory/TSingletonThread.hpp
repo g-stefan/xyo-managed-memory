@@ -7,7 +7,7 @@
 #ifndef XYO_MANAGEDMEMORY_TSINGLETONTHREAD_HPP
 #define XYO_MANAGEDMEMORY_TSINGLETONTHREAD_HPP
 
-#ifdef XYO_SINGLE_THREAD
+#ifdef XYO_PLATFORM_SINGLE_THREAD
 
 #	ifndef XYO_MANAGEDMEMORY_TSINGLETONPROCESS_HPP
 #		include <XYO/MangedMemory/TSingletonProcess.hpp>
@@ -34,7 +34,7 @@ namespace XYO::ManagedMemory {
 
 	template <typename T>
 	class TSingletonThread {
-			XYO_DISALLOW_COPY_ASSIGN_MOVE(TSingletonThread);
+			XYO_PLATFORM_DISALLOW_COPY_ASSIGN_MOVE(TSingletonThread);
 
 		protected:
 			inline TSingletonThread(){};

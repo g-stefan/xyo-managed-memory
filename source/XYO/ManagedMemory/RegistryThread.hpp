@@ -15,7 +15,7 @@
 #	include <XYO/ManagedMemory/TMemorySystem.hpp>
 #endif
 
-#ifdef XYO_MULTI_THREAD
+#ifdef XYO_PLATFORM_MULTI_THREAD
 namespace XYO::ManagedMemory {
 	namespace RegistryThread {
 

@@ -7,7 +7,7 @@
 #ifndef XYO_MANAGEDMEMORY_TMEMORYPOOLUNIFIEDPROCESS_HPP
 #define XYO_MANAGEDMEMORY_TMEMORYPOOLUNIFIEDPROCESS_HPP
 
-#if defined(XYO_TMEMORYPOOL_SYSTEM) | defined(XYO_TMEMORYPOOL_UNIFIED_AS_SYSTEM)
+#if defined(XYO_MANAGEDMEMORY_TMEMORYPOOL_SYSTEM) | defined(XYO_MANAGEDMEMORY_TMEMORYPOOL_UNIFIED_AS_SYSTEM)
 
 #	ifndef XYO_MANAGEDMEMORY_TMEMORYSYSTEM_HPP
 #		include <XYO/ManagedMemory/TMemorySystem.hpp>
@@ -34,20 +34,12 @@ namespace XYO::ManagedMemory {
 #		include <XYO/ManagedMemory/TXList1.hpp>
 #	endif
 
-#	ifndef XYO_MANAGEDMEMORY_CRITICALSECTION_HPP
-#		include <XYO/ManagedMemory/CriticalSection.hpp>
-#	endif
-
-#	ifndef XYO_MANAGEDMEMORY_TATOMIC_HPP
-#		include <XYO/ManagedMemory/TAtomic.hpp>
-#	endif
-
 namespace XYO::ManagedMemory {
 
 	template <size_t sizeOfT>
 	class TMemoryPoolUnifiedProcessImplement {
 		protected:
-#	ifdef XYO_MULTI_THREAD
+#	ifdef XYO_PLATFORM_MULTI_THREAD
 			CriticalSection criticalSection;
 #	endif
 		public:
@@ -61,7 +53,7 @@ namespace XYO::ManagedMemory {
 					Link *next;
 
 					uint8_t value[sizeOfT];
-#	ifdef XYO_TMEMORYPOOL_CHECK
+#	ifdef XYO_MANAGEDMEMORY_TMEMORYPOOL_CHECK
 					bool isDeleted;
 #	endif
 			};
@@ -71,19 +63,19 @@ namespace XYO::ManagedMemory {
 			Link *rootFreeLink;
 			size_t rootFreeLinkCount;
 
-#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
+#	ifdef XYO_MANAGEDMEMORY_TMEMORYPOOL_CHECK_COUNT
 			size_t checkCount;
 #	endif
 
 			inline TMemoryPoolUnifiedProcessImplement() {
 				ListLink::constructor(rootFreeLink);
 				rootFreeLinkCount = 0;
-#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
+#	ifdef XYO_MANAGEDMEMORY_TMEMORYPOOL_CHECK_COUNT
 				checkCount = 0;
 #	endif
 			};
 
-#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
+#	ifdef XYO_MANAGEDMEMORY_TMEMORYPOOL_CHECK_COUNT
 			static inline const std::string checkCountNotZero_() {
 				std::string retV("check count not zero ");
 				retV += registryKey();
@@ -93,7 +85,7 @@ namespace XYO::ManagedMemory {
 
 			inline ~TMemoryPoolUnifiedProcessImplement() {
 
-#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
+#	ifdef XYO_MANAGEDMEMORY_TMEMORYPOOL_CHECK_COUNT
 				if (checkCount != 0) {
 					throw std::runtime_error(checkCountNotZero_());
 				};
@@ -106,7 +98,7 @@ namespace XYO::ManagedMemory {
 				Link *newItem;
 				for (k = 0; k < NewElementCount; ++k) {
 					newItem = ListLink::newNode();
-#	ifdef XYO_TMEMORYPOOL_CHECK
+#	ifdef XYO_MANAGEDMEMORY_TMEMORYPOOL_CHECK
 					newItem->isDeleted = true;
 #	endif
 					++rootFreeLinkCount;
@@ -116,28 +108,28 @@ namespace XYO::ManagedMemory {
 
 			inline void *newMemory() {
 				void *this_;
-#	ifdef XYO_MULTI_THREAD
+#	ifdef XYO_PLATFORM_MULTI_THREAD
 				criticalSection.enter();
 #	endif
 				if (!rootFreeLink) {
 					grow();
 				};
 				this_ = (void *)(rootFreeLink->value);
-#	ifdef XYO_TMEMORYPOOL_CHECK
+#	ifdef XYO_MANAGEDMEMORY_TMEMORYPOOL_CHECK
 				rootFreeLink->isDeleted = false;
 #	endif
-#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
+#	ifdef XYO_MANAGEDMEMORY_TMEMORYPOOL_CHECK_COUNT
 				checkCount++;
 #	endif
 				--rootFreeLinkCount;
 				ListLink::popUnsafeX(rootFreeLink);
-#	ifdef XYO_MULTI_THREAD
+#	ifdef XYO_PLATFORM_MULTI_THREAD
 				criticalSection.leave();
 #	endif
 				return this_;
 			};
 
-#	ifdef XYO_TMEMORYPOOL_CHECK
+#	ifdef XYO_MANAGEDMEMORY_TMEMORYPOOL_CHECK
 			static inline const std::string deleteMemoryOnAlreadyDeletedObject_() {
 				std::string retV("deleteMemory on already deleted object ");
 				retV += registryKey();
@@ -146,19 +138,19 @@ namespace XYO::ManagedMemory {
 #	endif
 
 			inline void deleteMemory(void *this_) {
-#	ifdef XYO_TMEMORYPOOL_CHECK
+#	ifdef XYO_MANAGEDMEMORY_TMEMORYPOOL_CHECK
 				if ((reinterpret_cast<Link *>((reinterpret_cast<uint8_t *>(this_)) - offsetof(Link, value)))->isDeleted) {
 					throw std::runtime_error(deleteMemoryOnAlreadyDeletedObject_());
 				};
 				(reinterpret_cast<Link *>((reinterpret_cast<uint8_t *>(this_)) - offsetof(Link, value)))->isDeleted = true;
 #	endif
-#	ifdef XYO_TMEMORYPOOL_CHECK_COUNT
+#	ifdef XYO_MANAGEDMEMORY_TMEMORYPOOL_CHECK_COUNT
 				checkCount--;
 #	endif
 
 				Link *itemListToFree = nullptr;
 
-#	ifdef XYO_MULTI_THREAD
+#	ifdef XYO_PLATFORM_MULTI_THREAD
 				criticalSection.enter();
 #	endif
 
@@ -182,7 +174,7 @@ namespace XYO::ManagedMemory {
 					};
 				};
 
-#	ifdef XYO_MULTI_THREAD
+#	ifdef XYO_PLATFORM_MULTI_THREAD
 				criticalSection.leave();
 #	endif
 

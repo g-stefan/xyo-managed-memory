@@ -8,7 +8,7 @@
 #	include <XYO/ManagedMemory/Dependency.hpp>
 #endif
 
-#ifdef XYO_MULTI_THREAD
+#ifdef XYO_PLATFORM_MULTI_THREAD
 
 #	include <XYO/ManagedMemory/RegistryData.hpp>
 #	include <XYO/ManagedMemory/RegistryKey.hpp>
@@ -24,9 +24,9 @@ namespace XYO::ManagedMemory {
 
 		typedef RegistryDataList List;
 
-		static XYO_THREAD_LOCAL size_t fastTrackSize = 0;
-		static XYO_THREAD_LOCAL RegistryThreadData *thisThread = nullptr;
-		static XYO_THREAD_LOCAL void **fastTrack = nullptr;
+		static XYO_PLATFORM_THREAD_LOCAL size_t fastTrackSize = 0;
+		static XYO_PLATFORM_THREAD_LOCAL RegistryThreadData *thisThread = nullptr;
+		static XYO_PLATFORM_THREAD_LOCAL void **fastTrack = nullptr;
 
 		static void resizeFastTrack(size_t newSize) {
 

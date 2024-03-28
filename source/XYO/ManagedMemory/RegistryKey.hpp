@@ -11,10 +11,6 @@
 #	include <XYO/ManagedMemory/TXRedBlackTree.hpp>
 #endif
 
-#ifndef XYO_MANAGEDMEMORY_TATOMIC_HPP
-#	include <XYO/ManagedMemory/TAtomic.hpp>
-#endif
-
 namespace XYO::ManagedMemory {
 
 	struct RegistryKeyNode : TXRedBlackTreeNode<RegistryKeyNode, const char *> {
@@ -32,12 +28,12 @@ namespace XYO::ManagedMemory {
 		XYO_MANAGEDMEMORY_EXPORT void processBegin();
 		XYO_MANAGEDMEMORY_EXPORT void processEnd();
 
-#ifdef XYO_MULTI_THREAD
+#ifdef XYO_PLATFORM_MULTI_THREAD
 		XYO_MANAGEDMEMORY_EXPORT void criticalEnter();
 		XYO_MANAGEDMEMORY_EXPORT void criticalLeave();
 #endif
 
-#ifdef XYO_SINGLE_THREAD
+#ifdef XYO_PLATFORM_SINGLE_THREAD
 		inline void criticalEnter(){};
 
 		inline void criticalLeave(){};

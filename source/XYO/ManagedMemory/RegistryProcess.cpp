@@ -10,11 +10,11 @@
 #include <XYO/ManagedMemory/RegistryThread.hpp>
 #include <XYO/ManagedMemory/RegistryProcess.hpp>
 
-#ifdef XYO_OS_WINDOWS
+#ifdef XYO_PLATFORM_OS_WINDOWS
 #	include <windows.h>
 #endif
 
-#ifdef XYO_OS_LINUX
+#ifdef XYO_PLATFORM_OS_LINUX
 #	include <pthread.h>
 #	include <unistd.h>
 #	include <time.h>
@@ -35,14 +35,14 @@ namespace XYO::ManagedMemory::RegistryProcess {
 		List::constructor(data[RegistryLevel::Static]);
 		List::constructor(data[RegistryLevel::System]);
 
-#ifdef XYO_MULTI_THREAD
+#ifdef XYO_PLATFORM_MULTI_THREAD
 		RegistryThread::processBegin();
 #endif
 	};
 
 	void processEnd() {
 
-#ifdef XYO_MULTI_THREAD
+#ifdef XYO_PLATFORM_MULTI_THREAD
 		RegistryThread::processEnd();
 #endif
 		RegistryData::finalizeResource(data[RegistryLevel::Singleton]);
@@ -72,21 +72,13 @@ namespace XYO::ManagedMemory::RegistryProcess {
 
 		setValue(reinterpret_cast<RegistryKeyNode *&>(registryLink)->processValue.get());
 
-#ifdef XYO_MULTI_THREAD
+#ifdef XYO_PLATFORM_MULTI_THREAD
 
 		while (valueIsNullptr()) {
-#	ifdef XYO_OS_LINUX
-			struct timespec _sleep;
-			_sleep.tv_sec = 0;
-			_sleep.tv_nsec = 1000000;
-			while (nanosleep(&_sleep, &_sleep)) {
-			};
-#	endif
-#	ifdef XYO_OS_WINDOWS
-			Sleep(1);
-#	endif
+			Platform::Multithreading::Thread::sleep(1);
 			setValue(reinterpret_cast<RegistryKeyNode *&>(registryLink)->processValue.get());
 		};
+
 #endif
 
 		return false;

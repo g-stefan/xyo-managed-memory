@@ -8,4 +8,4 @@
 #include <XYO/ManagedMemory/Copyright.rh>
 #include <XYO/ManagedMemory/Version.rh>
 
-XYO_APPLICATION_VERSION_INFO(XYO_MANAGEDMEMORY,"xyo-managed-memory.dll","XYO Managed Memory")
+XYO_PLATFORM_VERSION_INFO(XYO_MANAGEDMEMORY,"xyo-managed-memory.dll","XYO Managed Memory")

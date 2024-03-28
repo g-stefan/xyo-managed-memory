@@ -17,5 +17,3 @@
 #include <XYO/ManagedMemory/RegistryThread.cpp>
 #include <XYO/ManagedMemory/RegistryProcess.cpp>
 #include <XYO/ManagedMemory/Registry.cpp>
-#include <XYO/ManagedMemory/CriticalSection-OS-Windows.cpp>
-#include <XYO/ManagedMemory/CriticalSection-OS-Linux.cpp>

@@ -5,23 +5,23 @@
 // SPDX-License-Identifier: MIT
 
 #include <XYO/ManagedMemory/RegistryKey.hpp>
-#include <XYO/ManagedMemory/CriticalSection.hpp>
 
 namespace XYO::ManagedMemory {
 
 	namespace RegistryKey {
+		using namespace XYO::Platform::Multithreading;
 
 		static RegistryKeyNode *root = nullptr;
 		static size_t threadKey;
 
 		typedef RegistryKeyRBTree RBTree;
 
-#ifdef XYO_MULTI_THREAD
+#ifdef XYO_PLATFORM_MULTI_THREAD
 		static CriticalSection *criticalSection;
 #endif
 
 		bool checkAndRegisterKey(const char *key, RegistryKeyNode *&this_) {
-#ifdef XYO_MULTI_THREAD
+#ifdef XYO_PLATFORM_MULTI_THREAD
 			criticalSection->enter();
 			this_ = RBTree::find(root, key);
 			if (this_ != nullptr) {
@@ -49,7 +49,7 @@ namespace XYO::ManagedMemory {
 			return true;
 #endif
 
-#ifdef XYO_SINGLE_THREAD
+#ifdef XYO_PLATFORM_SINGLE_THREAD
 			this_ = RBTree::find(root, key);
 			if (this_ != nullptr) {
 				return false;
@@ -70,21 +70,21 @@ namespace XYO::ManagedMemory {
 		};
 
 		RegistryKeyNode *getKey(const char *key) {
-#ifdef XYO_MULTI_THREAD
+#ifdef XYO_PLATFORM_MULTI_THREAD
 			RegistryKeyNode *this_;
 			criticalSection->enter();
 			this_ = RBTree::find(root, key);
 			criticalSection->leave();
 			return this_;
 #endif
-#ifdef XYO_SINGLE_THREAD
+#ifdef XYO_PLATFORM_SINGLE_THREAD
 			return RBTree::find(root, key);
 #endif
 		};
 
 		void processBegin() {
 
-#ifdef XYO_MULTI_THREAD
+#ifdef XYO_PLATFORM_MULTI_THREAD
 			criticalSection = new CriticalSection();
 #endif
 
@@ -96,12 +96,12 @@ namespace XYO::ManagedMemory {
 
 			RBTree::destructor(root);
 
-#ifdef XYO_MULTI_THREAD
+#ifdef XYO_PLATFORM_MULTI_THREAD
 			delete criticalSection;
 #endif
 		};
 
-#ifdef XYO_MULTI_THREAD
+#ifdef XYO_PLATFORM_MULTI_THREAD
 
 		void criticalEnter() {
 			criticalSection->enter();

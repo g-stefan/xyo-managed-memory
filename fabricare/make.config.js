@@ -14,32 +14,32 @@ var defines = [];
 if (OS.isWindows()) {
 	defines = defines.concat([
 		"_CRT_SECURE_NO_WARNINGS",
-		"XYO_OS_WINDOWS"
+		"XYO_PLATFORM_OS_WINDOWS"
 	]);
 
 	if (Platform.name.indexOf("msvc") >= 0) {
 		defines = defines.concat([
-			"XYO_COMPILER_MSVC"
+			"XYO_PLATFORM_COMPILER_MSVC"
 		]);
 	};
 
 	if (Platform.name.indexOf("mingw") >= 0) {
 		defines = defines.concat([
-			"XYO_COMPILER_GCC",
-			"XYO_OS_MINGW"
+			"XYO_PLATFORM_COMPILER_GCC",
+			"XYO_PLATFORM_OS_MINGW"
 		]);
 	};
 };
 
 if (OS.isLinux()) {
 	defines = defines.concat([
-		"XYO_OS_LINUX",
-		"XYO_COMPILER_GCC"
+		"XYO_PLATFORM_OS_LINUX",
+		"XYO_PLATFORM_COMPILER_GCC"
 	]);
 };
 
 defines = defines.concat([
-	"XYO_MULTI_THREAD",
+	"XYO_PLATFORM_MULTI_THREAD",
 	"XYO_PLATFORM=\"" + Platform.name + "\""
 ]);
 
@@ -48,11 +48,11 @@ if(Shell.hasEnv("XYO_MANAGED_MEMORY_CONFIG")) {
 };
 
 if (Platform.machine == "x64") {
-	defines[defines.length] = "XYO_APPLICATION_64BIT";
+	defines[defines.length] = "XYO_PLATFORM_64BIT";
 };
 
 if (Platform.machine == "x86") {
-	defines[defines.length] = "XYO_APPLICATION_32BIT";
+	defines[defines.length] = "XYO_PLATFORM_32BIT";
 };
 
 compileAndRunTemp({

@@ -43,12 +43,10 @@
 // ---
 
 #include <XYO/ManagedMemory/RegistryData.hpp>
-#include <XYO/ManagedMemory/TAtomic.hpp>
 #include <XYO/ManagedMemory/RegistryKey.hpp>
 #include <XYO/ManagedMemory/RegistryLevel.hpp>
 #include <XYO/ManagedMemory/RegistryProcess.hpp>
 #include <XYO/ManagedMemory/RegistryThread.hpp>
-#include <XYO/ManagedMemory/CriticalSection.hpp>
 #include <XYO/ManagedMemory/TSingletonProcess.hpp>
 #include <XYO/ManagedMemory/TSingletonThread.hpp>
 #include <XYO/ManagedMemory/TSingleton.hpp>

@@ -31,7 +31,7 @@
 #	include <XYO/ManagedMemory/TMemoryPool.hpp>
 #endif
 
-#ifdef XYO_TMEMORYPOOL_SYSTEM
+#ifdef XYO_MANAGEDMEMORY_TMEMORYPOOL_SYSTEM
 
 namespace XYO::ManagedMemory {
 

@@ -8,22 +8,18 @@
 #define XYO_MANAGEDMEMORY_TSINGLETONPROCESS_HPP
 
 #ifndef XYO_MANAGEDMEMORY_TMEMORYSYSTEM_HPP
-#	include <XYO/ManagedMemory/TmemorySystem.hpp>
+#	include <XYO/ManagedMemory/TMemorySystem.hpp>
 #endif
 
 #ifndef XYO_MANAGEDMEMORY_REGISTRYPROCESS_HPP
 #	include <XYO/ManagedMemory/RegistryProcess.hpp>
 #endif
 
-#ifndef XYO_MANAGEDMEMORY_TATOMIC_HPP
-#	include <XYO/ManagedMemory/TAtomic.hpp>
-#endif
-
 namespace XYO::ManagedMemory {
 
 	template <typename T>
 	class TSingletonProcess {
-			XYO_DISALLOW_COPY_ASSIGN_MOVE(TSingletonProcess);
+			XYO_PLATFORM_DISALLOW_COPY_ASSIGN_MOVE(TSingletonProcess);
 
 		protected:
 			inline TSingletonProcess(){};

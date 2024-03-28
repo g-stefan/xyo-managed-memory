@@ -8,7 +8,10 @@
 				"make" : "lib-and-dll",
 				"category" : "make",
 				"SPDX-License-Identifier": "MIT",
-				"sourcePath" : "XYO/ManagedMemory"
+				"sourcePath" : "XYO/ManagedMemory",
+				"dependency" : [
+					"xyo-platform"
+				]
 			},
 			{
 				"name" : "test.01",
