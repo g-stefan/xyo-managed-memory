@@ -28,6 +28,10 @@
 #else
 #	define XYO_MANAGEDMEMORY_EXPORT XYO_PLATFORM_LIBRARY_IMPORT
 #endif
+#ifdef XYO_MANAGEDMEMORY_LIBRARY
+#	undef XYO_MANAGEDMEMORY_EXPORT
+#	define XYO_MANAGEDMEMORY_EXPORT
+#endif
 
 namespace XYO::ManagedMemory {
 	using namespace XYO::Platform;
